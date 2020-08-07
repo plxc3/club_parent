@@ -1,0 +1,30 @@
+server:
+  port: 7002
+#  服务名
+spring:
+  application:
+    name: service-aliyun-7002
+    #环境设置：dev，test，prod
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      # 最大置总上传的数据大小 ：默认10M
+      max-request-size: 1024MB
+      # 最大上传单个文件大小：默认1M
+      max-file-size: 1024MB
+  #    nacos注册
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 121.89.177.244:8848
+#阿里云OSS
+#不同服务器，地址不同
+aliyun:
+  oss:
+    file:
+      endpoint: oss-cn-chengdu.aliyuncs.com
+      keyId: LTAI4GKbm3sbKrQutNLfpD6g
+      keySercert: otsw0JVsvBW5hsBbmXn3lMN3ox1FiL
+      bucketName: plxc
+
