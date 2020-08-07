@@ -1,11 +1,11 @@
 spring:
   cloud:
-#    gateway:
-#      routes:
-#        - id: blog-dao
-#          uri: lb://blog-dao
-#          predicates:
-#            - Path=/dao/**
+    gateway:
+      routes:
+        - id: service-acl
+          uri: lb://service-acl-8002
+          predicates:
+            - Path=/acl/**
 #          filters:
 #            - RewritePath=/api/(?<segment>.*),/$\{segment}
 #        - id: blog-web
@@ -14,6 +14,6 @@ spring:
 #            - Path=/**
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: 121.89.177.244:8848
 server:
-  port: 80
+  port: 8888

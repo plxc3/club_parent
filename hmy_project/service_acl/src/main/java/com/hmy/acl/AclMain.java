@@ -8,10 +8,10 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableDiscoveryClient
 @ComponentScan(basePackages = {"com.plxcc.servicebase","com.hmy.acl"})
-public class Main
+public class AclMain
 {
     public static void main(String[] args)
     {
-        SpringApplication.run(Main.class,args);
+        SpringApplication.run(AclMain.class,args);
     }
 }
