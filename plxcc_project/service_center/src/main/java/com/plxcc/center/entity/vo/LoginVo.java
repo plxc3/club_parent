@@ -20,6 +20,4 @@ public class LoginVo {
 
     private String password;
 
-    //图形验证码
-    private String code;
 }

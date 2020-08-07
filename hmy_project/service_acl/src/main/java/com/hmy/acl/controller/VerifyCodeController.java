@@ -1,12 +1,12 @@
 package com.hmy.acl.controller;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
+import com.plxcc.servicebase.common.Result;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.web.bind.annotation.*;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -60,16 +60,17 @@ public class VerifyCodeController
      * @return bool
      */
     @ApiOperation(value = "校验用户验证码",tags = {"verify"})
-    @GetMapping("/web/verify/valid")
-    public boolean validate(@RequestParam String verifyCode, HttpSession session)
+    @GetMapping("/web/verify/valid/{verifyCode}")
+    public Result validate(@PathVariable String verifyCode, HttpSession session)
     {
+
         if (!verifyCode.isEmpty()){
             if (verifyCode.equals(session.getAttribute("verifyCode"))){
-                return true;
+                return Result.success().setMsg("图形验证码通过");
             }
         }
         //验证失败后清除session中保存的验证码 需前端刷新验证码
         session.removeAttribute("verifyCode");
-        return false;
+        return Result.fail().setMsg("图形验证码失败");
     }
 }

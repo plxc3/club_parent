@@ -12,6 +12,7 @@ import com.plxcc.servicebase.utils.JwtUtils;
 import com.plxcc.servicebase.utils.MD5;
 import org.springframework.stereotype.Service;
 
+
 /**
  * <p>
  *  服务实现类
@@ -22,12 +23,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+
+
+
     @Override
     public Result login(LoginVo loginVo) {
         String phone=loginVo.getPhone();
         String email=loginVo.getEmail();
         String password=loginVo.getPassword();
-        String code=loginVo.getCode();
+
 
         //前端已经整合不会发送空的账号数据和密码，所以只需判断登陆方式或者是否密码账号是否错误
         if(!StringUtils.checkValNotNull(email)){

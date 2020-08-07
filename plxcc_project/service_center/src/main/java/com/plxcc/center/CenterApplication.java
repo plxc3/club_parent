@@ -1,5 +1,6 @@
 package com.plxcc.center;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -16,10 +17,9 @@ import org.springframework.context.annotation.ComponentScan;
  * @Version:
  * @Description:
  */
-@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@SpringBootApplication
 @ComponentScan("com.plxcc")
-//开启服务调用
-@EnableFeignClients
+@MapperScan("com.plxcc.center.mapper")
 public class CenterApplication {
     public static void main(String[] args) {
         SpringApplication.run(CenterApplication.class,args);

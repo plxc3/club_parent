@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.plxcc.center.entity.vo.LoginVo;
 import com.plxcc.servicebase.common.Result;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * <p>
  *  服务类
