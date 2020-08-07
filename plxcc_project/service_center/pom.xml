@@ -8,13 +8,14 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
 
     <artifactId>service_center</artifactId>
 
 
     <!--    项目打包的maven插件-->
     <build>
-        <finalName>service_edu</finalName>
+        <finalName>service_center</finalName>
         <resources>
             <resource>
                 <directory>src/main/java</directory>
