@@ -40,7 +40,7 @@ public class SwaggerConfig {
 
         return new ApiInfoBuilder()
                 .title("PLXC-API文档")
-                .description("在线教育项目文档测试")
+                .description("社团管理api")
                 .version("1.0")
                 .build();
     }
