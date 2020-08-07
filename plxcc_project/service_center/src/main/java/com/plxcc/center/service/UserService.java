@@ -2,7 +2,9 @@ package com.plxcc.center.service;
 
 import com.plxcc.center.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.plxcc.center.entity.vo.LoginInfoVo;
 import com.plxcc.center.entity.vo.LoginVo;
+import com.plxcc.center.entity.vo.RegisterVo;
 import com.plxcc.servicebase.common.Result;
 
 import javax.servlet.http.HttpSession;
@@ -18,4 +20,8 @@ import javax.servlet.http.HttpSession;
 public interface UserService extends IService<User> {
 
     Result login(LoginVo loginVo);
+
+    Result register(RegisterVo registerVo);
+
+    LoginInfoVo getUserInfo(String id);
 }

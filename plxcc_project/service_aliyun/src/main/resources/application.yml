@@ -18,13 +18,27 @@ spring:
     nacos:
       discovery:
         server-addr: 121.89.177.244:8848
+  #redis数据库连接设置
+  redis:
+    host: 121.89.177.244
+    port: 6379
+    database: 0
+    timeout: 1800000
+    password: 22446688
+    lettuce:
+      pool:
+        max-active: 20
+        max-wait: 1
+        #最大阻塞等待时间(负数表示没限制)
+        max-idle: 5
+        min-idle: 0
 #阿里云OSS
 #不同服务器，地址不同
 aliyun:
   oss:
-    file:
-      endpoint: oss-cn-chengdu.aliyuncs.com
-      keyId: LTAI4GKbm3sbKrQutNLfpD6g
-      keySercert: otsw0JVsvBW5hsBbmXn3lMN3ox1FiL
-      bucketName: plxc
+   file:
+    endpoint: oss-cn-chengdu.aliyuncs.com
+    keyId: LTAI4GKbm3sbKrQutNLfpD6g
+    keySercert: otsw0JVsvBW5hsBbmXn3lMN3ox1FiL
+    bucketName: plxc
 

@@ -2,6 +2,7 @@ package com.plxcc.aliyun.utils;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  * @PackgeName: com.plxcc.aliyun.utils
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
  * @Version:
  * @Description:
  */
+@Component
 //当项目启动，执行一个spring接口方法,继承InitializingBean
 public class ConstantPropertiesUtils implements InitializingBean {
 
@@ -32,14 +34,13 @@ public class ConstantPropertiesUtils implements InitializingBean {
     public static String KEY_ID;
     public static String KEY_SERCERT;
     public static String BUCKET_NAME;
+
     @Override
     public void afterPropertiesSet() throws Exception {
-
         ENDPOINT=this.endpoint;
         KEY_ID=this.keyId;
         KEY_SERCERT=this.keySercert;
         BUCKET_NAME=this.bucketName;
-
     }
 
 
