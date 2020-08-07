@@ -1,0 +1,19 @@
+spring:
+  cloud:
+#    gateway:
+#      routes:
+#        - id: blog-dao
+#          uri: lb://blog-dao
+#          predicates:
+#            - Path=/dao/**
+#          filters:
+#            - RewritePath=/api/(?<segment>.*),/$\{segment}
+#        - id: blog-web
+#          uri: lb://blog-web
+#          predicates:
+#            - Path=/**
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+server:
+  port: 80

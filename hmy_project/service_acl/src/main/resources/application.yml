@@ -1,0 +1,22 @@
+server:
+  port: 8002
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://121.89.177.244:3306/testDemon?useUnicode=true&characterEncoding=UTF-8
+    password: 22446688
+    username: root
+  application:
+    name: service-acl-8002
+  profiles:
+    active: dev
+    #返回的json数据全局时间格式
+  jackson:
+    date-format: yyyy-MM-dd HH:MM:SS
+    time-zone: GMT+8
+  #    nacos注册
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 121.89.177.244:8848
+

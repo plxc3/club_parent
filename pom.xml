@@ -5,6 +5,7 @@
     <modules>
         <module>common</module>
         <module>plxcc_project</module>
+        <module>hmy_project</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
