@@ -18,7 +18,7 @@ public class JwtUtils {
     public static final long EXPIRE = 1000 * 60 * 60 * 24;
     public static final String APP_SECRET = "plxc";//秘钥
 
-    public static String getJwtToken(String id, String nickname){
+    public static String getJwtToken(String id, String nickname,String role){
 
         String JwtToken = Jwts.builder()
                 .setHeaderParam("typ", "JWT")
@@ -28,6 +28,7 @@ public class JwtUtils {
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE))
                 .claim("id", id)
                 .claim("nickname", nickname)
+                .claim("role",role)
                 .signWith(SignatureAlgorithm.HS256, APP_SECRET)
                 .compact();
 
@@ -79,5 +80,17 @@ public class JwtUtils {
         Jws<Claims> claimsJws = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwtToken);
         Claims claims = claimsJws.getBody();
         return (String)claims.get("id");
+    }
+    /**
+     * 根据token获取会员id
+     * @param request
+     * @return
+     */
+    public static String getRoleByToken(HttpServletRequest request) throws Exception {
+        String jwtToken = request.getHeader("token");
+        if(StringUtils.isEmpty(jwtToken)){return "";}
+        Jws<Claims> claimsJws = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwtToken);
+        Claims claims = claimsJws.getBody();
+        return (String) claims.get("role");
     }
 }
