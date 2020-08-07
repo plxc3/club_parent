@@ -2,7 +2,7 @@ server:
   port: 7001
 spring:
   application:
-    name: service_center
+    name: service-center-7001
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://121.89.177.244:3306/club?useUnicode=true&characterEncoding=UTF-8
