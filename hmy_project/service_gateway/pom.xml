@@ -11,6 +11,7 @@
 
     <artifactId>service_gateway</artifactId>
     <packaging>jar</packaging>
+    <name>service_gateway</name>
 
     <dependencies>
         <dependency>
