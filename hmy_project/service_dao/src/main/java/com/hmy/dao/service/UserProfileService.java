@@ -1,7 +1,10 @@
 package com.hmy.dao.service;
 
-import com.hmy.dao.entity.UserProfile;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hmy.dao.entity.UserProfile;
+import com.plxcc.servicebase.utils.PageUtils;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface UserProfileService extends IService<UserProfile> {
 
+    PageUtils queryPage(Map<String, Object> params);
 }
