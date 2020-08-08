@@ -4,11 +4,9 @@ package com.hmy.dao.controller;
 import com.hmy.dao.entity.UserProfile;
 import com.hmy.dao.service.UserProfileService;
 import com.plxcc.servicebase.common.Result;
-import com.plxcc.servicebase.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -39,14 +37,8 @@ public class UserProfileController {
     }
 
     @PostMapping("/update")
-    public Result update(@RequestBody UserProfile userProfile, HttpServletRequest request) throws Exception
+    public Result update(@RequestBody UserProfile userProfile)
     {
-        String id = JwtUtils.getMemberIdByJwtToken(request);
-        if (id!=null){
-            if (!id.equals(userProfile.getUserId())){
-                return Result.fail().setMsg("请先登录");
-            }
-        }
         boolean update = service.update(userProfile, null);
         if (update){
             return Result.success().setMsg("/更新成功");
