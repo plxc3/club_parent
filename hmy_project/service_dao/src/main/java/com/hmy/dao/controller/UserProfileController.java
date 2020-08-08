@@ -30,10 +30,20 @@ public class UserProfileController {
         return Result.success().setData("profile",service.getById(id));
     }
 
-    @GetMapping("/getPage")
+    @GetMapping("/list")
     public Result getPage(@RequestParam Map<String,Object> params)
     {
         return Result.success().setData("page",service.queryPage(params));
+    }
+
+    @PostMapping("/insert")
+    public Result insert(@RequestBody UserProfile profile)
+    {
+        boolean save = service.save(profile);
+        if (save){
+            return Result.success().setMsg("成功");
+        }
+        return Result.fail().setMsg("失败");
     }
 
     @PostMapping("/update")

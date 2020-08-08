@@ -1,16 +1,15 @@
 package com.hmy.user.controller;
 
 import com.hmy.user.entity.UserProfile;
-import com.hmy.user.feign.UserFeignService;
+import com.hmy.user.feign.UserProfileFeignService;
+import com.plxcc.servicebase.common.PageParam;
+import com.plxcc.servicebase.common.PageParamUtil;
 import com.plxcc.servicebase.common.Result;
 import com.plxcc.servicebase.utils.JwtUtils;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 public class UserProfileController
 {
     @Autowired
-    UserFeignService service;
+    UserProfileFeignService profileFeignService;
 
     @GetMapping("/getByToken")
     @ApiOperation(value = "获取profile",tags = "user-profile")
@@ -27,11 +26,20 @@ public class UserProfileController
     {
         String id = JwtUtils.getMemberIdByJwtToken(request);
         if (!StringUtils.isEmpty(id)){
-            return service.getById(id);
+            return profileFeignService.getById(id);
         }
         return Result.fail().setMsg("查询失败");
     }
 
+    @PostMapping("/list")
+    @ApiOperation(value = "分页查询profile",tags = "user-profile")
+    public Result list(@RequestBody(required = false) PageParam param)
+    {
+        return profileFeignService.list(PageParamUtil.toMap(param));
+    }
+
+    @PostMapping("/update")
+    @ApiOperation(value = "更新profile",tags = "user-profile")
     public Result update(@RequestBody UserProfile userProfile,HttpServletRequest request) throws Exception
     {
         String id = JwtUtils.getMemberIdByJwtToken(request);
@@ -40,6 +48,13 @@ public class UserProfileController
                 return Result.fail().setMsg("请先登录");
             }
         }
-        return service.update(userProfile);
+        return profileFeignService.update(userProfile);
+    }
+
+    @PostMapping("/insert")
+    @ApiOperation(value = "插入profile",tags = "user-profile")
+    public Result insert(@RequestBody UserProfile userProfile)
+    {
+        return profileFeignService.insert(userProfile);
     }
 }
