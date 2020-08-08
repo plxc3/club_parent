@@ -162,6 +162,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
        return infoVo;
     }
 
+    @Override
     public PageUtils queryPage(Map<String, Object> params)
     {
         IPage<User> page = this.page(

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
-@RequestMapping("/dao/user-profile")
+@RequestMapping("/user/user-profile")
 @RestController
 public class UserProfileController
 {
