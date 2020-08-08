@@ -13,8 +13,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Description:
  */
 @SpringBootApplication
-public class MainApplication {
+public class GateWayApplication {
     public static void main(String[] args) {
-        SpringApplication.run(MainApplication.class,args);
+        SpringApplication.run(GateWayApplication.class,args);
     }
 }
