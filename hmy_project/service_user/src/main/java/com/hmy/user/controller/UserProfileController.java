@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-@RequestMapping("/dao/user-profile")
+@RequestMapping("/user/user-profile")
 @RestController
 public class UserProfileController
 {
