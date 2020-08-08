@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>service_api</artifactId>
+    <name>service_user</name>
     <packaging>jar</packaging>
 
 <dependencies>
@@ -24,4 +25,15 @@
         <artifactId>spring-cloud-starter-openfeign</artifactId>
     </dependency>
 </dependencies>
+
+    <!--    项目打包的maven插件-->
+    <build>
+        <finalName>service_user</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
