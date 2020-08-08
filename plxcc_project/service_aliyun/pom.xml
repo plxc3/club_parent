@@ -12,6 +12,17 @@
     <name>service_aliyun</name>
 
     <artifactId>service_aliyun</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+        </dependency>
+        <!--阿里云邮件服务 -->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-dm</artifactId>
+        </dependency>
+    </dependencies>
 
     <!--    项目打包的maven插件-->
     <build>

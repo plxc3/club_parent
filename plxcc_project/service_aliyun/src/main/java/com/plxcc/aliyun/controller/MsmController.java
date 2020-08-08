@@ -39,9 +39,9 @@ public class MsmController {
     @GetMapping("/send/{phone}")
     public Result sendMsm(@PathVariable String phone) {
         //1.从redis中获取验证码，如果获取直接返回
-        String code = redisTemplate.opsForValue().get("phone");
+        String code = redisTemplate.opsForValue().get(phone);
         if (StringUtils.checkValNotNull(code)) {
-            return Result.success().setMsg("验证码已发送");
+            return Result.success().setMsg("验证码早发了");
         }
         //2.如果获取不到，进行阿里云发送
 
@@ -62,5 +62,28 @@ public class MsmController {
 
         return Result.fail().setMsg("短信验证码发送失败");
     }
+
+    /**
+     * 发送邮件验证码
+     */
+    @ApiOperation(tags = {"oss"},value = "邮件验证码发送接口")
+    @GetMapping("/sendEmail/{email}")
+    public Result sendEmail(@PathVariable String email){
+        //1.从redis中获取验证码，如果获取直接返回
+        String code = redisTemplate.opsForValue().get(email);
+        if (StringUtils.checkValNotNull(code)) {
+            return Result.success().setMsg("验证码早发了");
+        }
+        //2.如果获取不到，进行阿里云发送
+
+        //生成随机的数值，传递给阿里云进行发送
+        code = RandomUtil.getFourBitRandom();
+        msmService.sendEmail(email,code);
+        //发送成功，把code放到redis中，并设置过期时间
+        redisTemplate.opsForValue().set(email, code, 15, TimeUnit.MINUTES);
+        return Result.success().setMsg("验证码已发送");
+
+    }
+
 
 }

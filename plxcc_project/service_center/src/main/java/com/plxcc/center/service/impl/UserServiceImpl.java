@@ -52,7 +52,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             queryWrapper.eq("phone",phone);
             User user=baseMapper.selectOne(queryWrapper);
             if(!StringUtils.checkValNotNull(user)){
-                return Result.fail().setMsg("账号不存在");
+                return Result.fail().setMsg("账户不存在");
             }
             //对passwor进行加密与获取的密码进行判断
             if(!user.getPassword().equals(MD5.encrypt(password))){
@@ -66,9 +66,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
             return Result.success().setMsg("登陆成功").setData("token",token);
 
-        }
+        }else {
+            //根据邮箱查询用户是否存在并获取用户信息
+            QueryWrapper<User> queryWrapper=new QueryWrapper<>();
+            queryWrapper.eq("email",email);
+            User user=baseMapper.selectOne(queryWrapper);
+            if(!StringUtils.checkValNotNull(user)){
+                return Result.fail().setMsg("账户不存在");
+            }
+            //对passwor进行加密与获取的密码进行判断
+            if(!user.getPassword().equals(MD5.encrypt(password))){
+                return Result.fail().setMsg("账户或密码错误");
+            }
+            //判断用户是否禁用
+            if(user.getIsDisable()){
+                return Result.fail().setMsg("用户已经被禁用");
+            }
+            String token= JwtUtils.getJwtToken(user.getUserId(),user.getNickname(),user.getRole());
 
-        return Result.fail().setMsg("TODO");
+            return Result.success().setMsg("登陆成功").setData("token",token);
+        }
 
     }
 
@@ -81,7 +98,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String phone=registerVo.getPhone();
         if(!StringUtils.checkValNotNull(email)){
             String rediscode=redisTemplate.opsForValue().get(phone);
-            System.out.println(rediscode);
             if(!code.equals(rediscode)){
                 return Result.fail().setMsg("短信验证码错误");
             }
@@ -104,7 +120,30 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             }
             return Result.success().setMsg("注册成功");
         }
-        return Result.fail().setMsg("TODO");
+        else {
+            String rediscode=redisTemplate.opsForValue().get(email);
+            if(!code.equals(rediscode)){
+                return Result.fail().setMsg("邮件验证码错误");
+            }
+            //判断用户是否存在
+            QueryWrapper<User> userQueryWrapper=new QueryWrapper<>();
+            userQueryWrapper.eq("email",email);
+            int count=baseMapper.selectCount(userQueryWrapper);
+            if(count>0){
+                return Result.fail().setMsg("用户已经注册");
+            }
+            User user=new User();
+            BeanUtils.copyProperties(registerVo,user);
+            user.setPassword(MD5.encrypt(password));
+            //若果插入成功，同时创建user档案表，插入user的id
+            if(baseMapper.insert(user)>0){
+                UserProfile userProfile=new UserProfile();
+                userProfile.setUserId(user.getUserId());
+                userProfile.setAvatar("https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png");
+                profileService.save(userProfile);
+            }
+            return Result.success().setMsg("注册成功");
+        }
     }
 
     @Override

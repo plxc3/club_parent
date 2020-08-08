@@ -13,4 +13,6 @@ import java.util.Map;
  */
 public interface MsmService {
     Boolean sendCode(Map<String, Object> param, String phone);
+
+    void sendEmail(String email,String code);
 }
