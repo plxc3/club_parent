@@ -1,0 +1,19 @@
+server:
+  port: 8222
+
+spring:
+  application:
+    name: service-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+#        - id: SERVICE-ACL
+#          uri: lb://SERVICE-ACL
+#          predicates:
+#            - Path=/*/acl/** # 路径匹配
+    nacos:
+      discovery:
+        server-addr: 121.89.177.244:8888
