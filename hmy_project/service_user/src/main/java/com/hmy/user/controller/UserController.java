@@ -2,15 +2,13 @@ package com.hmy.user.controller;
 
 import com.hmy.user.entity.User;
 import com.hmy.user.feign.UserFeignService;
+import com.plxcc.servicebase.common.PageParam;
+import com.plxcc.servicebase.common.PageParamUtil;
 import com.plxcc.servicebase.common.Result;
+import com.plxcc.servicebase.config.PermissionVerify;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -20,11 +18,12 @@ public class UserController
     @Autowired
     UserFeignService userFeignService;
 
-    @GetMapping("getUserPage")
+    @GetMapping("list")
     @ApiOperation(value = "分页查询用户列表",tags = {"user"})
-    public Result userList(@RequestParam Map<String, Object> params)
+    @PermissionVerify()
+    public Result userList(@RequestBody(required = false) PageParam param)
     {
-        return userFeignService.userList(params);
+        return userFeignService.userList(PageParamUtil.toMap(param));
     }
 
     @GetMapping("/getUserById")

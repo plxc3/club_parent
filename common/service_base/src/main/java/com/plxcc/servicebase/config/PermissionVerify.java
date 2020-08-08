@@ -1,4 +1,4 @@
-package com.plxcc.servicebase.aspect;
+package com.plxcc.servicebase.config;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Permission
+public @interface PermissionVerify
 {
     int value() default 0;
 }
