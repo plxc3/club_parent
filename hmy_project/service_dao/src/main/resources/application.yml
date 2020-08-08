@@ -4,7 +4,7 @@ spring:
   #redis数据库连接设置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://121.89.177.244:3306/testDemon?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://121.89.177.244:3306/club?useUnicode=true&characterEncoding=UTF-8
     password: 22446688
     username: root
   redis:
@@ -18,7 +18,7 @@ spring:
         max-active: 20
         max-wait: 1
   application:
-    name: service-web-8001
+    name: service-dao
   profiles:
     active: dev
     #返回的json数据全局时间格式

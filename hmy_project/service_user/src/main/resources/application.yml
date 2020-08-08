@@ -1,0 +1,21 @@
+server:
+  port: 8003
+spring:
+  application:
+    name: service-user
+  profiles:
+    active: dev
+    #返回的json数据全局时间格式
+  jackson:
+    date-format: yyyy-MM-dd HH:MM:SS
+    time-zone: GMT+8
+  #    nacos注册
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 121.89.177.244:8848
+#开启熔断机制
+feign:
+  hystrix:
+    enabled: true
+

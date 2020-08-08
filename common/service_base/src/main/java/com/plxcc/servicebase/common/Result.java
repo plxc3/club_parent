@@ -17,6 +17,7 @@ import java.util.Map;
  * @Description:统一结果返回类
  */
 @Data
+
 public class Result <T> {
     /**
      * 构造方法私有化
