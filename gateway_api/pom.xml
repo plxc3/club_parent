@@ -3,23 +3,23 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>hmy_project</artifactId>
+        <artifactId>club_parent</artifactId>
         <groupId>com.plxcc</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>service_gateway</artifactId>
+    <artifactId>gateway_api</artifactId>
     <packaging>jar</packaging>
-    <name>service_gateway</name>
+    <name>gateway_api</name>
 
     <dependencies>
-<!--服务发现-->
+        <!--服务发现-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-<!--网关-->
+        <!--网关-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
@@ -36,7 +36,7 @@
 
     <!--    项目打包的maven插件-->
     <build>
-        <finalName>service_gateway</finalName>
+        <finalName>gateway_api</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
