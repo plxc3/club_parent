@@ -1,4 +1,4 @@
 FROM openjdk:8-jdk-alpine
 VOLUME /tmp
-COPY ./target/gateway_service.jar gateway_service.jar
-ENTRYPOINT ["java","-jar","/gateway_service.jar", "&"]
+COPY ./target/service.jar service.jar
+ENTRYPOINT ["java","-jar","/service.jar", "&"]
