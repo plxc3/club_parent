@@ -7,7 +7,7 @@ spring:
     password: 22446688
     username: root
   application:
-    name: service-acl-8002
+    name: service-acl
   profiles:
     active: dev
     #返回的json数据全局时间格式
