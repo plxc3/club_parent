@@ -12,6 +12,7 @@
     <artifactId>service_acl</artifactId>
 
     <packaging>jar</packaging>
+    <name>service_acl</name>
 
     <dependencies>
         <!--图形验证码-->
@@ -51,6 +52,17 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
     </dependencies>
+
+    <!--    项目打包的maven插件-->
+    <build>
+        <finalName>service_acl</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>
