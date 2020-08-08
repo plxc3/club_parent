@@ -14,9 +14,9 @@ public interface UserFeignService
     @GetMapping("/dao/user/getUserById")
     Result<User> getUserById(@RequestParam String id);
 
-    @GetMapping("/dao/user/getUserInfoByToken")
-    Result getUserInfoByToken();
-
     @GetMapping("/dao/user/getUserPage")
     Result userList(@RequestParam Map<String, Object> params);
+
+    @GetMapping("/getById")
+    Result getById(@RequestParam String id);
 }

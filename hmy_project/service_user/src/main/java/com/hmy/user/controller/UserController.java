@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
@@ -40,10 +39,4 @@ public class UserController
         return Result.fail().setMsg("没有此用户");
     }
 
-    @GetMapping("/getUserInfoByToken")
-    @ApiOperation(tags = "user",value = "通过token进行信息获取的接口")
-    public Result getUserInfoByToken(HttpServletRequest request)
-    {
-        return userFeignService.getUserInfoByToken();
-    }
 }
