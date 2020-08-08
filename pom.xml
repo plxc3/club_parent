@@ -223,12 +223,6 @@
                 <artifactId>aliyun-java-sdk-dm</artifactId>
                 <version>3.1.0</version>
             </dependency>
-            <!-- 网关依赖-->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-gateway</artifactId>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
 
