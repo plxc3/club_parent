@@ -30,7 +30,6 @@ public class ValidateCodeController {
     public Map<String, String> getImgCode() {
 
         Map<String, String> result = new HashMap<>();
-
         try {
             // 获取 4位数验证码
             result= ImgValidateCodeUtil.getImgCodeBaseCode(4);
