@@ -154,4 +154,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         BeanUtils.copyProperties(userProfile,infoVo);
         return infoVo;
     }
+
+    @Override
+    public Boolean selectByPhone(String phone) {
+        QueryWrapper<User> userquery=new QueryWrapper<>();
+        userquery.eq("phone",phone);
+        int count=baseMapper.selectCount(userquery);
+        if(count>0){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Boolean selectByEmail(String email) {
+        QueryWrapper<User> userquery=new QueryWrapper<>();
+        userquery.eq("email",email);
+        int count=baseMapper.selectCount(userquery);
+        if(count>0){
+            return false;
+        }
+        return true;
+    }
 }

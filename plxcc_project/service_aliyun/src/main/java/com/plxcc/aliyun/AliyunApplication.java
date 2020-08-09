@@ -3,6 +3,7 @@ package com.plxcc.aliyun;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -16,6 +17,8 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @ComponentScan(basePackages = "com.plxcc")
+//开启服务调用
+@EnableFeignClients
 public class AliyunApplication {
     public static void main(String[] args) {
         SpringApplication.run(AliyunApplication.class,args);

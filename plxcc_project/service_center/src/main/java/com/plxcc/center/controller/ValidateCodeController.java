@@ -1,13 +1,12 @@
 package com.plxcc.center.controller;
 
+import com.plxcc.center.entity.vo.CheckImgCodeVo;
 import com.plxcc.center.utlis.ImgValidateCodeUtil;
 import com.plxcc.servicebase.common.Result;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,18 +44,18 @@ public class ValidateCodeController {
     /**
      * 校验验证码
      * imgCodeKey为从redis数据获取图片验证码
-     * @param imgCodeKey
-     * @param imgCode
+     * @param
+     * @param
      * @return
      */
-    @GetMapping("/checkImgCode")
+    @PostMapping("/checkImgCode")
     @ApiOperation(tags = {"center"},value = "验证码校验")
-    public Result checkImgCode(String imgCodeKey, String imgCode) {
-        String cacheCode = redisTemplate.opsForValue().get(imgCodeKey);
+    public Result checkImgCode(@RequestBody CheckImgCodeVo checkImgCodeVo) {
+        String cacheCode = redisTemplate.opsForValue().get(checkImgCodeVo.getImgCodeKey());
         if (null == cacheCode) {
             return Result.fail().setMsg("图片验证码已过期，请重新获取");
         }
-        if (cacheCode.equals(imgCode.toLowerCase())) {
+        if (cacheCode.equals(checkImgCodeVo.getImgCode().toLowerCase())) {
             return Result.success().setMsg("验证码输入正确");
         }
         return Result.fail().setMsg("验证码输入错误");

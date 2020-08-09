@@ -12,9 +12,6 @@ import java.util.Map;
 import java.util.Random;
 
 public class ImgValidateCodeUtil {
-    static{
-        System.setProperty("java.awt.headless", "true");
-    }
 
     private static Random random = new Random();
     /**

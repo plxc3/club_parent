@@ -24,4 +24,8 @@ public interface UserService extends IService<User> {
     Result register(RegisterVo registerVo);
 
     LoginInfoVo getUserInfo(String id);
+
+    Boolean selectByPhone(String phone);
+
+    Boolean selectByEmail(String email);
 }

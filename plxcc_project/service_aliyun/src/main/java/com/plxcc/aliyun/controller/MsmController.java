@@ -1,6 +1,7 @@
 package com.plxcc.aliyun.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.plxcc.aliyun.feign.UserFeign;
 import com.plxcc.aliyun.service.MsmService;
 import com.plxcc.servicebase.common.Result;
 import com.plxcc.servicebase.utils.RandomUtil;
@@ -27,6 +28,9 @@ import java.util.concurrent.TimeUnit;
 public class MsmController {
 
     @Autowired
+    private UserFeign userFeign;
+
+    @Autowired
     private MsmService msmService;
 
     @Autowired
@@ -38,6 +42,10 @@ public class MsmController {
     @ApiOperation(tags = {"oss"},value = "短信验证码发送接口")
     @GetMapping("/send/{phone}")
     public Result sendMsm(@PathVariable String phone) {
+        //0.判断手机号是否在数据库中注册
+        if(!userFeign.getByPhone(phone)){
+            return Result.fail().setMsg("手机号已经注册");
+        }
         //1.从redis中获取验证码，如果获取直接返回
         String code = redisTemplate.opsForValue().get(phone);
         if (StringUtils.checkValNotNull(code)) {
@@ -69,6 +77,11 @@ public class MsmController {
     @ApiOperation(tags = {"oss"},value = "邮件验证码发送接口")
     @GetMapping("/sendEmail/{email}")
     public Result sendEmail(@PathVariable String email){
+
+        //0.判断邮件是否注册
+        if(!userFeign.getByEmail(email)){
+            return Result.fail().setMsg("邮箱已经注册");
+        }
         //1.从redis中获取验证码，如果获取直接返回
         String code = redisTemplate.opsForValue().get(email);
         if (StringUtils.checkValNotNull(code)) {

@@ -68,6 +68,25 @@ public class UserController {
             throw new ZTException(20001,"error");
         }
     }
+    /**
+     * 根据手机号查询用户是否存在
+     */
+    @GetMapping("/exitByPhone/{phone}")
+    @ApiOperation(tags = {"feign"},value = "根据手机号查询用户是否存在")
+    public Boolean getByPhone(@PathVariable String phone){
+        return userService.selectByPhone(phone);
+    }
+    /**
+     * 根据邮箱号查询用户是否存在
+     */
+    @GetMapping("/exitByEmail/{email}")
+    @ApiOperation(tags = {"feign"},value = "根据邮箱号查询用户是否存在")
+    public Boolean getByEmail(@PathVariable String email){
+        return userService.selectByEmail(email);
+    }
+
+
+
 
 }
 
