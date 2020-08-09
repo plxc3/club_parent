@@ -47,7 +47,7 @@ public class GetCode {
 
         // 4、包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName("lll"); //模块名
+        pc.setModuleName("center"); //模块名(第三包名)
         pc.setParent("com.plxcc");
         pc.setController("controller");
         pc.setEntity("entity");
@@ -60,7 +60,7 @@ public class GetCode {
         /**
          *关联数据库中的表
          */
-        strategy.setInclude("user","user_profile");
+        strategy.setInclude("banner_list");
 
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
         strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀

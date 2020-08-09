@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PermissionVerify
 {
-    int value() default 0;
+    int value() default 1;
 }

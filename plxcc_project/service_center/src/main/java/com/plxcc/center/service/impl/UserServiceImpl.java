@@ -91,11 +91,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public Result register(RegisterVo registerVo) {
-        //获取注册码
+        //获取注册码(注册信息)
         String code=registerVo.getCode();
         String password=registerVo.getPassword();
         String email=registerVo.getEmail();
         String phone=registerVo.getPhone();
+
         if(!StringUtils.checkValNotNull(email)){
             String rediscode=redisTemplate.opsForValue().get(phone);
             if(!code.equals(rediscode)){
@@ -149,9 +150,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public LoginInfoVo getUserInfo(String id) {
        LoginInfoVo infoVo=new LoginInfoVo();
-        System.out.println(id);
         UserProfile userProfile=profileService.getById(id);
-        System.out.println(userProfile);
         BeanUtils.copyProperties(userProfile,infoVo);
         return infoVo;
     }

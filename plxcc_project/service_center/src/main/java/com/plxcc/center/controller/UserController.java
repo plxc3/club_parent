@@ -6,6 +6,7 @@ import com.plxcc.center.entity.vo.LoginVo;
 import com.plxcc.center.entity.vo.RegisterVo;
 import com.plxcc.center.service.UserService;
 import com.plxcc.servicebase.common.Result;
+import com.plxcc.servicebase.config.PermissionVerify;
 import com.plxcc.servicebase.utils.JwtUtils;
 import com.plxcc.servicebase.exception.ZTException;
 import io.swagger.annotations.ApiOperation;
@@ -49,6 +50,7 @@ public class UserController {
     /**
      * 根据token获取用户信息
      */
+    @PermissionVerify
     @GetMapping("auth/getUserInfo")
     @ApiOperation(tags = "center",value = "通过token进行信息获取的接口")
     public Result getUserInfoByToken(HttpServletRequest request){

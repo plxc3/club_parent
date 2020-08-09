@@ -35,7 +35,8 @@ public class PermissionAspect
             if (Integer.parseInt(role) >= minLevel){
                 return joinPoint.proceed();
             }
+            return Result.fail().setMsg("权限不足");
         }
-        return Result.fail().setMsg("权限不足");
+        return Result.fail().setMsg("没有登录");
     }
 }
