@@ -11,8 +11,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-@Component
 public class ImgValidateCodeUtil {
+    static{
+        System.setProperty("java.awt.headless", "true");
+    }
 
     private static Random random = new Random();
     /**
