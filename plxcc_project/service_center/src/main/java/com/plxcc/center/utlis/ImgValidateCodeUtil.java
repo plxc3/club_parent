@@ -1,5 +1,7 @@
 package com.plxcc.center.utlis;
 
+import org.springframework.stereotype.Component;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -9,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+@Component
 public class ImgValidateCodeUtil {
 
     private static Random random = new Random();
