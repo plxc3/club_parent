@@ -1,6 +1,7 @@
 package com.plxcc.center.entity.vo;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 /**
  * @PackgeName: com.plxcc.center.entity.vo
@@ -11,10 +12,10 @@ import io.swagger.annotations.ApiModelProperty;
  * @Version:
  * @Description:
  */
+@Data
 public class LoginInfoVo {
 
     private String userId;
-
 
     @ApiModelProperty(value = "头像")
     private String avatar;

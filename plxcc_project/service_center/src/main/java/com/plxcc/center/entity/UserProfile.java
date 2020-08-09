@@ -58,13 +58,6 @@ public class UserProfile implements Serializable {
     @ApiModelProperty(value = "逻辑删除")
     private Integer isDeleted;
 
-
-    @ApiModelProperty(value = "密码")
-    private String password;
-
-    @ApiModelProperty(value = "邮箱")
-    private String email;
-
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
     @TableField(fill = FieldFill.INSERT_UPDATE)

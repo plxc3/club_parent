@@ -47,7 +47,7 @@ public class GetCode {
 
         // 4、包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName("center"); //模块名
+        pc.setModuleName("lll"); //模块名
         pc.setParent("com.plxcc");
         pc.setController("controller");
         pc.setEntity("entity");

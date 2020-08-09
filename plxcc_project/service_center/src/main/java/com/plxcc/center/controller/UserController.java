@@ -53,9 +53,13 @@ public class UserController {
     @ApiOperation(tags = "center",value = "通过token进行信息获取的接口")
     public Result getUserInfoByToken(HttpServletRequest request){
         //调用JWT工具类的方法，根据request对象获取头信息，返回用户id
+        if(!JwtUtils.checkToken(request)){
+            return Result.fail().setMsg("无效的token");
+        }
         try {
             String id = JwtUtils.getMemberIdByJwtToken(request);
             LoginInfoVo infoVo=userService.getUserInfo(id);
+            System.out.println(id);
             return Result.success().setData("loginInfo",infoVo);
         }catch (Exception e){
             e.printStackTrace();

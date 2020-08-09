@@ -33,6 +33,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private RedisTemplate<String,String> redisTemplate;
+
     @Autowired
     private UserProfileService profileService;
 
@@ -43,8 +44,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String phone=loginVo.getPhone();
         String email=loginVo.getEmail();
         String password=loginVo.getPassword();
-
-
         //前端已经整合不会发送空的账号数据和密码，所以只需判断登陆方式或者是否密码账号是否错误
         if(!StringUtils.checkValNotNull(email)){
             //根据手机号查询用户是否存在并获取用户信息
@@ -62,6 +61,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             if(user.getIsDisable()){
                 return Result.fail().setMsg("用户已经被禁用");
             }
+            System.out.println(user);
             String token= JwtUtils.getJwtToken(user.getUserId(),user.getNickname(),user.getRole());
 
             return Result.success().setMsg("登陆成功").setData("token",token);
@@ -149,7 +149,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public LoginInfoVo getUserInfo(String id) {
        LoginInfoVo infoVo=new LoginInfoVo();
-       BeanUtils.copyProperties(profileService.getById(id),infoVo);
-       return infoVo;
+        System.out.println(id);
+        UserProfile userProfile=profileService.getById(id);
+        System.out.println(userProfile);
+        BeanUtils.copyProperties(userProfile,infoVo);
+        return infoVo;
     }
 }
