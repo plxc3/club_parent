@@ -1,7 +1,7 @@
 package com.plxcc.servicebase.handler;
 
 import com.plxcc.servicebase.common.Result;
-import com.plxcc.servicebase.utils.ZTException;
+import com.plxcc.servicebase.exception.ZTException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

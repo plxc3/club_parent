@@ -1,4 +1,4 @@
-package com.plxcc.servicebase.utils;
+package com.plxcc.servicebase.exception;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

@@ -9,7 +9,7 @@ import com.hmy.dao.service.UserService;
 import com.plxcc.servicebase.common.Result;
 import com.plxcc.servicebase.utils.JwtUtils;
 import com.plxcc.servicebase.utils.PageUtils;
-import com.plxcc.servicebase.utils.ZTException;
+import com.plxcc.servicebase.exception.ZTException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

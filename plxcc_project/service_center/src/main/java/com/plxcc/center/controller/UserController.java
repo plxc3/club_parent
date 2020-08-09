@@ -7,13 +7,12 @@ import com.plxcc.center.entity.vo.RegisterVo;
 import com.plxcc.center.service.UserService;
 import com.plxcc.servicebase.common.Result;
 import com.plxcc.servicebase.utils.JwtUtils;
-import com.plxcc.servicebase.utils.ZTException;
+import com.plxcc.servicebase.exception.ZTException;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  * <p>
