@@ -18,6 +18,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 @RestController
+@RequestMapping("/acl")
 public class VerifyCodeController
 {
     @Autowired
