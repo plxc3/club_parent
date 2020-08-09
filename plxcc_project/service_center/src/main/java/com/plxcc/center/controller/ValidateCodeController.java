@@ -1,6 +1,7 @@
 package com.plxcc.center.controller;
 
 import com.plxcc.center.utlis.ImgValidateCodeUtil;
+import com.plxcc.servicebase.common.Result;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -27,7 +28,7 @@ public class ValidateCodeController {
      */
     @GetMapping("/getImgCode")
     @ApiOperation(tags = {"center"},value = "生产图片验证码")
-    public Map<String, String> getImgCode() {
+    public Result  getImgCode() {
 
         Map<String, String> result = new HashMap<>();
         try {
@@ -38,7 +39,7 @@ public class ValidateCodeController {
         } catch (Exception e) {
             System.out.println(e);
         }
-        return result;
+        return Result.success().setData("result",result);
     }
 
     /**
@@ -50,15 +51,15 @@ public class ValidateCodeController {
      */
     @GetMapping("/checkImgCode")
     @ApiOperation(tags = {"center"},value = "验证码校验")
-    public String checkImgCode(String imgCodeKey, String imgCode) {
+    public Result checkImgCode(String imgCodeKey, String imgCode) {
         String cacheCode = redisTemplate.opsForValue().get(imgCodeKey);
         if (null == cacheCode) {
-            return "图片验证码已过期，请重新获取";
+            return Result.fail().setMsg("图片验证码已过期，请重新获取");
         }
         if (cacheCode.equals(imgCode.toLowerCase())) {
-            return "验证码输入正确";
+            return Result.success().setMsg("验证码输入正确");
         }
-        return "验证码输入错误";
+        return Result.fail().setMsg("验证码输入错误");
 
     }
 
