@@ -2,14 +2,12 @@ package com.plxcc.center.controller;
 
 
 import com.plxcc.center.entity.UserProfile;
+import com.plxcc.center.entity.vo.LoginInfoVo;
 import com.plxcc.center.service.UserProfileService;
 import com.plxcc.servicebase.common.Result;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -27,10 +25,17 @@ public class UserProfileController {
     private UserProfileService profileService;
 
     @GetMapping("/test/{id}")
+    @ApiOperation(tags = {"userProfile"},value = "test")
     public Result test(@PathVariable String id){
         UserProfile userProfil=profileService.getById(id);
         return Result.success().setData("data",userProfil);
 
     }
+
+    @PostMapping("/updateAvatar")
+    public Result updateAvatar(@RequestBody LoginInfoVo avatarvo){
+        return profileService.updateAvatar(avatarvo);
+    }
+
 }
 

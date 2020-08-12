@@ -28,4 +28,6 @@ public interface UserService extends IService<User> {
     Boolean selectByPhone(String phone);
 
     Boolean selectByEmail(String email);
+
+    Result loginOut(String id);
 }

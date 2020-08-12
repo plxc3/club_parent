@@ -41,7 +41,10 @@ public class User implements Serializable {
     @ApiModelProperty(value = "权限管理,0只能无法进入社团管理页面，1部分权限，2全部社团管理权限")
     private String role;
 
-    private Boolean isDisable;
+    @ApiModelProperty(value = "单人登陆，0未登录，1已经登陆")
+    private Integer loginState;
+
+    private Integer isDisable;
 
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;

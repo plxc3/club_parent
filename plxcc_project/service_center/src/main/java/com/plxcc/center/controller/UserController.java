@@ -65,9 +65,22 @@ public class UserController {
             return Result.success().setData("loginInfo",infoVo);
         }catch (Exception e){
             e.printStackTrace();
-            throw new ZTException(20001,"error");
+            throw new ZTException(20001,"异常");
         }
     }
+
+    @GetMapping("/loginout")
+    @ApiOperation(tags = {"center"},value = "退出登录接口")
+    public Result loginOut(HttpServletRequest request) throws Exception {
+        if(!JwtUtils.checkToken(request))
+        {
+            return Result.fail().setMsg("无效的token");
+        }
+        String id=JwtUtils.getMemberIdByJwtToken(request);
+        return userService.loginOut(id);
+    }
+
+
     /**
      * 根据手机号查询用户是否存在
      */
@@ -84,9 +97,6 @@ public class UserController {
     public Boolean getByEmail(@PathVariable String email){
         return userService.selectByEmail(email);
     }
-
-
-
 
 }
 

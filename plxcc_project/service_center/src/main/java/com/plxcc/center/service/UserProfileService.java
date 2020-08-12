@@ -2,6 +2,8 @@ package com.plxcc.center.service;
 
 import com.plxcc.center.entity.UserProfile;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.plxcc.center.entity.vo.LoginInfoVo;
+import com.plxcc.servicebase.common.Result;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface UserProfileService extends IService<UserProfile> {
 
+    Result updateAvatar(LoginInfoVo avatarvo);
 }

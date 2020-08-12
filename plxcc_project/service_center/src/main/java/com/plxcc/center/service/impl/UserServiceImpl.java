@@ -44,6 +44,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String phone=loginVo.getPhone();
         String email=loginVo.getEmail();
         String password=loginVo.getPassword();
+        System.out.println(loginVo);
         //前端已经整合不会发送空的账号数据和密码，所以只需判断登陆方式或者是否密码账号是否错误
         if(!StringUtils.checkValNotNull(email)){
             //根据手机号查询用户是否存在并获取用户信息
@@ -53,15 +54,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             if(!StringUtils.checkValNotNull(user)){
                 return Result.fail().setMsg("账户不存在");
             }
+            //对登陆状态可进行判断
+            if(user.getLoginState()==1){
+                return Result.fail().setMsg("用户已经登陆");
+            }
             //对passwor进行加密与获取的密码进行判断
             if(!user.getPassword().equals(MD5.encrypt(password))){
                 return Result.fail().setMsg("账户或密码错误");
             }
             //判断用户是否禁用
-            if(user.getIsDisable()){
+            if(user.getIsDisable()==1){
                 return Result.fail().setMsg("用户已经被禁用");
             }
-            System.out.println(user);
+            user.setLoginState(1);
+            baseMapper.updateById(user);
             String token= JwtUtils.getJwtToken(user.getUserId(),user.getNickname(),user.getRole());
 
             return Result.success().setMsg("登陆成功").setData("token",token);
@@ -74,14 +80,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             if(!StringUtils.checkValNotNull(user)){
                 return Result.fail().setMsg("账户不存在");
             }
+            //对登陆状态可进行判断
+            if(user.getLoginState()==1){
+                return Result.fail().setMsg("用户已经登陆");
+            }
             //对passwor进行加密与获取的密码进行判断
             if(!user.getPassword().equals(MD5.encrypt(password))){
                 return Result.fail().setMsg("账户或密码错误");
             }
             //判断用户是否禁用
-            if(user.getIsDisable()){
+            if(user.getIsDisable()==1){
                 return Result.fail().setMsg("用户已经被禁用");
             }
+            user.setLoginState(1);
+            baseMapper.updateById(user);
             String token= JwtUtils.getJwtToken(user.getUserId(),user.getNickname(),user.getRole());
 
             return Result.success().setMsg("登陆成功").setData("token",token);
@@ -112,6 +124,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             User user=new User();
             BeanUtils.copyProperties(registerVo,user);
             user.setPassword(MD5.encrypt(password));
+            user.setEmail("用的手机号注册");
+            user.setNickname("默认姓名");
             //若果插入成功，同时创建user档案表，插入user的id
             if(baseMapper.insert(user)>0){
                 UserProfile userProfile=new UserProfile();
@@ -136,6 +150,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             User user=new User();
             BeanUtils.copyProperties(registerVo,user);
             user.setPassword(MD5.encrypt(password));
+            user.setNickname("默认姓名");
+            user.setPhone("用的邮件注册");
             //若果插入成功，同时创建user档案表，插入user的id
             if(baseMapper.insert(user)>0){
                 UserProfile userProfile=new UserProfile();
@@ -149,7 +165,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public LoginInfoVo getUserInfo(String id) {
-       LoginInfoVo infoVo=new LoginInfoVo();
+        LoginInfoVo infoVo=new LoginInfoVo();
         UserProfile userProfile=profileService.getById(id);
         BeanUtils.copyProperties(userProfile,infoVo);
         return infoVo;
@@ -175,5 +191,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return false;
         }
         return true;
+    }
+
+    @Override
+    public Result loginOut(String id) {
+        User user=baseMapper.selectById(id);
+        user.setLoginState(0);
+        baseMapper.updateById(user);
+        return Result.success().setMsg("注销成功");
     }
 }
