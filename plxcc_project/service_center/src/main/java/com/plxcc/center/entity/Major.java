@@ -1,7 +1,10 @@
 package com.plxcc.center.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -30,12 +33,14 @@ public class Major implements Serializable {
     @ApiModelProperty(value = "标题")
     private String title;
 
-    private Integer parentId;
+    private String parentId;
 
     private Integer isDeletd;
 
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date modifiedTime;
 
 

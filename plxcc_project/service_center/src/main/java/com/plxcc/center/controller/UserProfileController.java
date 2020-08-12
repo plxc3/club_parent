@@ -33,6 +33,7 @@ public class UserProfileController {
     }
 
     @PostMapping("/updateAvatar")
+    @ApiOperation(tags = {"userProfile"},value = "updateAvatar")
     public Result updateAvatar(@RequestBody LoginInfoVo avatarvo){
         return profileService.updateAvatar(avatarvo);
     }
