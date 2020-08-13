@@ -5,6 +5,7 @@ import com.plxcc.center.service.MajorService;
 import com.plxcc.servicebase.common.Result;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -35,6 +36,12 @@ public class MajorController {
         //上传过来的Excel文件
         return majorService.addMajorByExcel(file, majorService);
     }
+    /**
+     * 专业列表查询
+     */
+//    @ApiOperation(tags = {"major"},value = "从Excel文件中读取专业")
+//    @GetMapping("/")
+
 
 }
 
