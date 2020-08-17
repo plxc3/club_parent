@@ -30,7 +30,8 @@ public class SwaggerConfig {
                 .groupName("webApi")
                 .apiInfo(webApiInfo())
                 .select()
-                .paths(Predicates.not(PathSelectors.regex("/admin/.*")))
+                //路径过滤....****
+//                .paths(Predicates.not(PathSelectors.regex("/admin/.*")))
                 .paths(Predicates.not(PathSelectors.regex("/error.*")))
                 .build();
 
@@ -40,7 +41,7 @@ public class SwaggerConfig {
 
         return new ApiInfoBuilder()
                 .title("PLXC-API文档")
-                .description("社团管理api")
+                .description("acm-Api")
                 .version("1.0")
                 .build();
     }

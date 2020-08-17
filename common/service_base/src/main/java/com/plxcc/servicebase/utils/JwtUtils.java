@@ -15,7 +15,7 @@ import java.util.Date;
  */
 public class JwtUtils {
 
-    public static final long EXPIRE = 1000 * 60 * 60 * 24;
+    public static final long EXPIRE = 1000 * 60 * 60 ;
     public static final String APP_SECRET = "plxc";//秘钥
 
     public static String getJwtToken(String id, String nickname,String role){

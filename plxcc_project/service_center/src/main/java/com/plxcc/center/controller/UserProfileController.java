@@ -1,6 +1,8 @@
 package com.plxcc.center.controller;
 
 
+import ch.qos.logback.core.pattern.util.RegularEscapeUtil;
+import com.plxcc.center.entity.Major;
 import com.plxcc.center.entity.UserProfile;
 import com.plxcc.center.entity.vo.LoginInfoVo;
 import com.plxcc.center.service.UserProfileService;
@@ -37,6 +39,7 @@ public class UserProfileController {
     public Result updateAvatar(@RequestBody LoginInfoVo avatarvo){
         return profileService.updateAvatar(avatarvo);
     }
+
 
 }
 
