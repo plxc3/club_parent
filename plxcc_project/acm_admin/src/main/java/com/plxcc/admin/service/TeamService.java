@@ -22,4 +22,8 @@ public interface TeamService extends IService<Team> {
     Result updateTeamById(ItemVo itemVo);
 
     Result deletdByTeamId(String id);
+
+    Result getAdminList();
+
+    Result getFrontEndList(String id);
 }

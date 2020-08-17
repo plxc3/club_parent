@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/admin/team")
 public class TeamController {
+
     @Autowired
     private TeamService teamService;
 
@@ -54,6 +55,25 @@ public class TeamController {
     public Result deletdByTeamId(@PathVariable String id ){
         return teamService.deletdByTeamId(id);
     }
+    /**
+     * 后台列表获取，两表关联
+     */
+    @ApiOperation(tags = {"iteam"},value = "后台小组列表获取")
+    @GetMapping("/getAdminList")
+    public Result getAdminList(){
+        return teamService.getAdminList();
+    }
+
+    /**
+     * 根据学校id返回一个学校的所有队伍
+     */
+    @ApiOperation(tags = {"iteam"},value = "学校页面的Excle")
+    @GetMapping("/getFrontEndList/{id}")
+    public Result getFrontEndList(@PathVariable String id){
+        return teamService.getFrontEndList(id);
+    }
+
+
 
 }
 

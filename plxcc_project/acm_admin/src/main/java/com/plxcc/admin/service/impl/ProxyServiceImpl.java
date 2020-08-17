@@ -19,6 +19,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.query.ExampleQueryMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -124,5 +127,12 @@ public class ProxyServiceImpl extends ServiceImpl<ProxyMapper, Proxy> implements
         BeanUtils.copyProperties(infoVo,proxy);
         baseMapper.updateById(proxy);
         return Result.success().setMsg("修改成功");
+    }
+
+    @Override
+    public Result getProList() {
+        List<Proxy> proxyList=new ArrayList<>();
+        proxyList=baseMapper.selectList(null);
+        return Result.success().setData("ProList",proxyList);
     }
 }

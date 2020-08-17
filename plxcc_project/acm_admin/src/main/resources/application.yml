@@ -18,7 +18,7 @@ spring:
     lettuce:
       pool:
         max-active: 20
-        max-wait: 1
+        max-wait: 9000
         #最大阻塞等待时间(负数表示没限制)
         max-idle: 5
         min-idle: 0
@@ -26,9 +26,12 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:MM:SS
     time-zone: GMT+8
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#mybatis-plus:
+##  configuration:
+##    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    #  <!--#配置mapper xml文件路径-->,必须pom.xml进行配置后使用
+#  mapper-locations: classpath:com/plxcc/admin/mapper/xml/*.xml
 
 #  <!--#配置mapper xml文件路径-->,必须pom.xml进行配置后使用
 #=================================

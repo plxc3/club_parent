@@ -80,6 +80,14 @@ public class ProxyController {
     public Result updateCardById(@RequestBody InfoVo infoVo){
         return proxyService.updateCardById(infoVo);
     }
+    /**
+     * 返回列表
+     */
+    @ApiOperation(tags = {"user"},value = "返回列表")
+    @GetMapping("/getProList")
+    public Result getProList(){
+        return proxyService.getProList();
+    }
 
 }
 

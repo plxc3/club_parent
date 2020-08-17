@@ -26,4 +26,6 @@ public interface ProxyService extends IService<Proxy> {
     Result getInfoByToken(String id);
 
     Result updateCardById(InfoVo infoVo);
+
+    Result getProList();
 }

@@ -1,16 +1,23 @@
 package com.plxcc.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.plxcc.admin.entity.Proxy;
 import com.plxcc.admin.entity.Team;
+import com.plxcc.admin.entity.vo.AdminListVo;
 import com.plxcc.admin.entity.vo.ItemVo;
 import com.plxcc.admin.mapper.TeamMapper;
+import com.plxcc.admin.service.ProxyService;
 import com.plxcc.admin.service.TeamService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.plxcc.admin.utils.ComparatorSort;
 import com.plxcc.servicebase.common.Result;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -23,14 +30,52 @@ import java.util.List;
  */
 @Service
 public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team> implements TeamService {
+
+    @Autowired
+    private ProxyService proxyService;
+
+
     @Override
     public Result addIteam(ItemVo itemVo) {
-        if(itemVo.getCoachName()==null){
-            return Result.fail().setMsg("教练不能为空");
+
+        if(itemVo.getTeamName()==null||itemVo.getTeamEngName()==null){
+            return Result.fail().setMsg("请填写完整的队伍名称信息");
         }
-        if(itemVo.getName1()==null){
-            return Result.fail().setMsg("必须有一个队员");
+
+        if(itemVo.getCoachName()==null||itemVo.getCoachPinyin()==null||itemVo.getCoachSex()==null||itemVo.getCoachTsize()==null){
+            return Result.fail().setMsg("请填写完整教练信息");
         }
+        if(itemVo.getName1()==null || itemVo.getPinyin1()==null||itemVo.getSex1()==null||itemVo.getTsize1()==null){
+            return Result.fail().setMsg("必须有一个队员，请填写第一个队员的完整信息");
+        }
+
+        if(itemVo.getPinyin2()!=null||itemVo.getName2()!=null){
+            if(!(itemVo.getPinyin2()!=null&&itemVo.getName2()!=null)){
+                return Result.fail().setMsg("请填写完整的队员信息");
+            }
+            else {
+                if(itemVo.getSex2()==null||itemVo.getTsize2()==null){
+                    return Result.fail().setMsg("请填写完整的队员信息");
+                }
+            }
+        }else{
+            itemVo.setSex2("");
+            itemVo.setTsize2("");
+        }
+
+        if(itemVo.getPinyin3()!=null||itemVo.getName3()!=null){
+            if(!(itemVo.getPinyin3()!=null&&itemVo.getName3()!=null)){
+                return Result.fail().setMsg("请填写完整的队员信息");
+            }else {
+                if(itemVo.getSex3()==null||itemVo.getTsize3()==null){
+                    return Result.fail().setMsg("请填写完整的队员信息");
+                }
+            }
+        }else{
+            itemVo.setSex3("");
+            itemVo.setTsize3("");
+        }
+
         Team team=new Team();
         BeanUtils.copyProperties(itemVo,team);
         baseMapper.insert(team);
@@ -71,5 +116,45 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team> implements Te
     public Result deletdByTeamId(String id) {
         System.out.println(baseMapper.deleteById(id));
         return Result.success().setMsg("删除成功");
+    }
+
+    @Override
+    public Result getAdminList() {
+        List<Team> teamList=new ArrayList<>();
+        List<AdminListVo> adminListVoList=new ArrayList<>();
+        teamList=baseMapper.selectList(null);
+        for(Team team:teamList){
+            AdminListVo adminVo=new AdminListVo();
+            Proxy proxy=proxyService.getById(team.getProxyId());
+            BeanUtils.copyProperties(proxy,adminVo);
+            BeanUtils.copyProperties(team,adminVo);
+            adminListVoList.add(adminVo);
+        }
+
+        Collections.sort(adminListVoList,new ComparatorSort());
+//
+//        for(AdminListVo ad:adminListVoList){
+//            System.out.println(ad.getUniName());
+//        }
+
+
+    return Result.success().setMsg("队伍列表").setData("TeamList",adminListVoList);
+    }
+
+    @Override
+    public Result getFrontEndList(String id) {
+        List<AdminListVo> adminListVoList=new ArrayList<>();
+        List<Team> teams=new ArrayList<>();
+        QueryWrapper<Team> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("proxy_id",id);
+        teams=baseMapper.selectList(queryWrapper);
+        for(Team team:teams){
+            AdminListVo adminVo=new AdminListVo();
+            BeanUtils.copyProperties(team,adminVo);
+            Proxy proxy=proxyService.getById(id);
+            BeanUtils.copyProperties(proxy,adminVo);
+            adminListVoList.add(adminVo);
+        }
+        return Result.success().setData("TeamList",adminListVoList);
     }
 }

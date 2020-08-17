@@ -70,7 +70,7 @@ public class ValidateCodeController {
         String imgCode = result.get("imgCode");
         UUID randomUUID = UUID.randomUUID();
         String imgCodeKey = randomUUID.toString();
-        System.out.println("imgCodeKey:" + imgCodeKey);
+//        System.out.println("imgCodeKey:" + imgCodeKey);
         // 图片验证码有效时间 ：5 分钟
         redisTemplate.opsForValue().set(imgCodeKey, imgCode, 5, TimeUnit.MINUTES);
         result.put("imgCodeKey", imgCodeKey);

@@ -100,7 +100,7 @@ public class Team implements Serializable {
 //    private String ofUniID;
 
     @ApiModelProperty(value = "队伍状态码")
-    private Integer state;
+    private String state;
 
     @ApiModelProperty(value = "逻辑删除")
     @TableLogic
