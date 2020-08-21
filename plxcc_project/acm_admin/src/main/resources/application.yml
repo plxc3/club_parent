@@ -6,7 +6,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://121.89.177.244:3306/acm?useUnicode=true&characterEncoding=UTF-8
-    password: 22446688
+    password: bc090062591563
     username: root
   #redis数据库连接设置
   redis:

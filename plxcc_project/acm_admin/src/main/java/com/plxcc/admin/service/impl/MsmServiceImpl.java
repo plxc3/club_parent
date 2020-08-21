@@ -42,9 +42,9 @@ public class MsmServiceImpl implements MsmService {
         //手机号
         request.putQueryParameter("PhoneNumbers", phone);
         //设置签名
-        request.putQueryParameter("SignName", "我的社团管理网站");
+        request.putQueryParameter("SignName", "acm管理网站");
         //设置模板
-        request.putQueryParameter("TemplateCode", "SMS_198672680");
+        request.putQueryParameter("TemplateCode", "SMS_199773305");
         //验证码
         request.putQueryParameter("TemplateParam", JSONObject.toJSONString(param));
 

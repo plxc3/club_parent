@@ -41,7 +41,7 @@ public class GetCode {
         dsc.setUrl("jdbc:mysql://121.89.177.244/acm?serverTimezone=GMT%2B8");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("22446688");
+        dsc.setPassword("bc090062591563");
         dsc.setDbType(DbType.MYSQL);
         mpg.setDataSource(dsc);
 
@@ -60,7 +60,7 @@ public class GetCode {
         /**
          *关联数据库中的表
          */
-        strategy.setInclude("admin");
+        strategy.setInclude("manager");
 
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
         strategy.setTablePrefix(pc.getModuleName() + "_"); //生成实体时去掉表前缀

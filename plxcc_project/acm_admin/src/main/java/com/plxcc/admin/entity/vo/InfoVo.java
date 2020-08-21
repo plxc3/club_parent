@@ -18,6 +18,8 @@ public class InfoVo {
 
     private String id;
 
+    private String role;
+
     @ApiModelProperty(value = "电话")
     private String phone;
 
@@ -40,4 +42,7 @@ public class InfoVo {
 
     @ApiModelProperty(value = "税号")
     private String tfn;
+
+    @ApiModelProperty(value = "密码")
+    private String password;
 }

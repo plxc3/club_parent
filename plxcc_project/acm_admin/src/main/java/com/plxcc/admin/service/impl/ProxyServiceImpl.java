@@ -3,12 +3,15 @@ package com.plxcc.admin.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.plxcc.admin.entity.Proxy;
+import com.plxcc.admin.entity.Team;
 import com.plxcc.admin.entity.vo.InfoVo;
 import com.plxcc.admin.entity.vo.LoginVo;
 import com.plxcc.admin.entity.vo.RegisterVo;
 import com.plxcc.admin.mapper.ProxyMapper;
 import com.plxcc.admin.service.ProxyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.plxcc.admin.service.TeamService;
+import com.plxcc.admin.utils.SchoolSort;
 import com.plxcc.servicebase.common.Result;
 import com.plxcc.servicebase.utils.JwtUtils;
 import com.plxcc.servicebase.utils.MD5;
@@ -20,6 +23,7 @@ import org.springframework.data.redis.repository.query.ExampleQueryMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,6 +39,12 @@ public class ProxyServiceImpl extends ServiceImpl<ProxyMapper, Proxy> implements
 
     @Autowired
     private RedisTemplate<String,String> redisTemplate;
+
+    @Autowired
+    private TeamService teamService;
+
+    @Autowired
+    private ProxyService proxyService;
 
 
     @Override
@@ -105,7 +115,7 @@ public class ProxyServiceImpl extends ServiceImpl<ProxyMapper, Proxy> implements
         if(!proxy.getPassword().equals(password)){
             return Result.fail().setMsg("账户或密码错误");
         }
-        String token= JwtUtils.getJwtToken(proxy.getId(),proxy.getName(),proxy.getPhone());
+        String token= JwtUtils.getJwtToken(proxy.getId(),proxy.getName(),proxy.getRole());
         return Result.success().setMsg("登陆成功").setData("token",token);
     }
 
@@ -123,16 +133,112 @@ public class ProxyServiceImpl extends ServiceImpl<ProxyMapper, Proxy> implements
         if(id==null){
             return Result.fail().setMsg("前端信息错误");
         }
+        String password=infoVo.getPassword();
+        System.out.println(password);
+        if(password==null||StringUtils.isEmpty(password)){
+            return Result.fail().setMsg("密码不能为空");
+        }
         Proxy proxy=baseMapper.selectById(id);
+        System.out.println(proxy.getPassword());
+        if(!password.equals(proxy.getPassword())){
+            password=MD5.encrypt(password);
+            password=MD5.encrypt(password.substring(0,20));
+            infoVo.setPassword(password);
+        }
         BeanUtils.copyProperties(infoVo,proxy);
         baseMapper.updateById(proxy);
         return Result.success().setMsg("修改成功");
     }
-
     @Override
     public Result getProList() {
         List<Proxy> proxyList=new ArrayList<>();
         proxyList=baseMapper.selectList(null);
+        Collections.sort(proxyList,new SchoolSort());
         return Result.success().setData("ProList",proxyList);
+    }
+
+    @Override
+    public Result deleted(String id) {
+        Proxy proxy=baseMapper.selectById(id);
+        if(proxy==null){
+            return Result.fail().setMsg("学校不存在");
+        }
+        QueryWrapper<Team> teamQueryWrapper=new QueryWrapper<>();
+        teamQueryWrapper.eq("proxy_id",id);
+        int count=teamService.count(teamQueryWrapper);
+        if(count>0){
+            if(teamService.remove(teamQueryWrapper)){
+                if(baseMapper.deleteById(id)>0){
+                    return Result.success().setMsg("删除成功");
+                }
+            }
+        }
+        if(baseMapper.deleteById(id)>0){
+            return Result.success().setMsg("删除成功");
+        }
+        return Result.fail().setMsg("删除失败");
+    }
+
+    @Override
+    public Result reset(String id) {
+       Proxy proxy=baseMapper.selectById(id);
+       if(proxy==null){
+           return Result.fail().setMsg("该学校不存在");
+       }
+       String password="123456";
+       password = MD5.encrypt(password);
+       password=MD5.encrypt(password.substring(0,20));
+       proxy.setPassword(password);
+       baseMapper.updateById(proxy);
+       return Result.success().setMsg("密码重置成功");
+    }
+
+    @Override
+    public Result closeRoleAll() {
+
+        List<Proxy> proxies=new ArrayList<>();
+        proxies=baseMapper.selectList(null);
+        for(Proxy proxy:proxies){
+            proxy.setRole("0");
+        }
+        if(proxyService.updateBatchById(proxies)){
+            return Result.success().setMsg("所有学校权限关闭成功");
+        }
+        return Result.fail().setMsg("所有学校权限关闭失败");
+    }
+
+    @Override
+    public Result openRoleAll() {
+        List<Proxy> proxies=new ArrayList<>();
+        proxies=baseMapper.selectList(null);
+        for(Proxy proxy:proxies){
+            proxy.setRole("1");
+        }
+        if(proxyService.updateBatchById(proxies)){
+            return Result.success().setMsg("所有学校权限打开成功");
+        }
+        return Result.fail().setMsg("所有学校权限打开失败");
+    }
+
+    @Override
+    public Result closeRoleById(String id) {
+        Proxy proxy=baseMapper.selectById(id);
+        if(proxy==null){
+            return Result.fail().setMsg("用户不存在");
+        }
+        proxy.setRole("0");
+        baseMapper.updateById(proxy);
+        return Result.success().setMsg("该学校权限关闭成功");
+    }
+
+    @Override
+    public Result openRoleById(String id) {
+        Proxy proxy=baseMapper.selectById(id);
+        if(proxy==null){
+            return Result.fail().setMsg("用户不存在");
+        }
+        proxy.setRole("1");
+        baseMapper.updateById(proxy);
+        return Result.success().setMsg("该学校权限打开成功");
     }
 }

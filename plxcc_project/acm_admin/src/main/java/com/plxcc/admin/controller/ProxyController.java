@@ -6,6 +6,7 @@ import com.plxcc.admin.entity.vo.LoginVo;
 import com.plxcc.admin.entity.vo.RegisterVo;
 import com.plxcc.admin.service.ProxyService;
 import com.plxcc.servicebase.common.Result;
+import com.plxcc.servicebase.config.PermissionVerify;
 import com.plxcc.servicebase.utils.JwtUtils;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
@@ -87,6 +88,55 @@ public class ProxyController {
     @GetMapping("/getProList")
     public Result getProList(){
         return proxyService.getProList();
+    }
+    /**
+     * 删除学校
+     */
+    @ApiOperation(tags = {"user"},value = "删除")
+    @GetMapping("/deleted/{id}")
+    public Result deletedProxy(@PathVariable String id){
+        return proxyService.deleted(id);
+    }
+    /**
+     * 重置当前学校密码
+     */
+    @ApiOperation(tags = {"user"},value = "重置密码")
+    @GetMapping("/reset/{id}")
+    public Result reset(@PathVariable String id){
+     return    proxyService.reset(id);
+    }
+
+    /**
+     * 关闭权限ALL
+     */
+    @ApiOperation(tags = {"user"},value = "关闭权限ALL")
+    @GetMapping("/closeRoleAll")
+    public Result closeRoleAll(){
+       return proxyService.closeRoleAll();
+    }
+    /**
+     * 打开权限ALL
+     */
+    @ApiOperation(tags = {"user"},value = "打开权限ALL")
+    @GetMapping("/openRoleAll")
+    public Result openRoleAll(){
+        return proxyService.openRoleAll();
+    }
+    /**
+     * 根据id关闭权限
+     */
+    @ApiOperation(tags = {"user"},value = "根据id关闭权限")
+    @GetMapping("/closeRoleById/{id}")
+    public Result closeRoleById(@PathVariable String id){
+        return proxyService.closeRoleById(id);
+    }
+    /**
+     * 根据id打开权限
+     */
+    @ApiOperation(tags = {"user"},value = "根据id打开权限")
+    @GetMapping("/openRoleById/{id}")
+    public Result openRoleById(@PathVariable String id){
+        return proxyService.openRoleById(id);
     }
 
 }

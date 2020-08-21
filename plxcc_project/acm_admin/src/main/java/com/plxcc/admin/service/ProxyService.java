@@ -28,4 +28,16 @@ public interface ProxyService extends IService<Proxy> {
     Result updateCardById(InfoVo infoVo);
 
     Result getProList();
+
+    Result deleted(String id);
+
+    Result reset(String id);
+
+    Result closeRoleAll();
+
+    Result openRoleAll();
+
+    Result closeRoleById(String id);
+
+    Result openRoleById(String id);
 }

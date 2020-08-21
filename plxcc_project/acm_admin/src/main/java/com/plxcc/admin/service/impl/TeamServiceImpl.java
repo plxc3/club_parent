@@ -41,39 +41,45 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team> implements Te
         if(itemVo.getTeamName()==null||itemVo.getTeamEngName()==null){
             return Result.fail().setMsg("请填写完整的队伍名称信息");
         }
-
+        QueryWrapper<Team> teamQueryWrapper=new QueryWrapper<>();
+       teamQueryWrapper.eq("teamName",itemVo.getTeamName()).or().eq("teamEngName",itemVo.getTeamEngName());
+       int count=baseMapper.selectCount(teamQueryWrapper);
+       if(count>0){
+           return Result.fail().setMsg("队伍英文名或中文名已经被注册");
+       }
         if(itemVo.getCoachName()==null||itemVo.getCoachPinyin()==null||itemVo.getCoachSex()==null||itemVo.getCoachTsize()==null){
             return Result.fail().setMsg("请填写完整教练信息");
         }
         if(itemVo.getName1()==null || itemVo.getPinyin1()==null||itemVo.getSex1()==null||itemVo.getTsize1()==null){
             return Result.fail().setMsg("必须有一个队员，请填写第一个队员的完整信息");
         }
-
-        if(itemVo.getPinyin2()!=null||itemVo.getName2()!=null){
-            if(!(itemVo.getPinyin2()!=null&&itemVo.getName2()!=null)){
-                return Result.fail().setMsg("请填写完整的队员信息");
-            }
-            else {
-                if(itemVo.getSex2()==null||itemVo.getTsize2()==null){
-                    return Result.fail().setMsg("请填写完整的队员信息");
-                }
-            }
-        }else{
+        if((itemVo.getName2()==""&&itemVo.getPinyin2()=="")||(itemVo.getName2()==null&&itemVo.getPinyin2()==null)){
+            itemVo.setPinyin2("");
+            itemVo.setName2("");
             itemVo.setSex2("");
             itemVo.setTsize2("");
-        }
-
-        if(itemVo.getPinyin3()!=null||itemVo.getName3()!=null){
-            if(!(itemVo.getPinyin3()!=null&&itemVo.getName3()!=null)){
-                return Result.fail().setMsg("请填写完整的队员信息");
+        }else{
+            if(itemVo.getPinyin2()==""||itemVo.getName2()==""){
+                return Result.fail().setMsg("请填写完整的队员2姓名信息");
             }else {
-                if(itemVo.getSex3()==null||itemVo.getTsize3()==null){
-                    return Result.fail().setMsg("请填写完整的队员信息");
+                if(itemVo.getSex2()==""||itemVo.getTsize2()==""){
+                    return Result.fail().setMsg("请填写完整的队员2其他信息");
                 }
             }
-        }else{
+        }
+        if((itemVo.getName3()==""&&itemVo.getPinyin3()=="")||(itemVo.getName3()==null&&itemVo.getPinyin3()==null)){
+            itemVo.setPinyin3("");
+            itemVo.setName3("");
             itemVo.setSex3("");
             itemVo.setTsize3("");
+        }else{
+            if(itemVo.getPinyin3()==""||itemVo.getName3()==""){
+                return Result.fail().setMsg("请填写完整的队员3姓名信息");
+            }else {
+                if(itemVo.getSex3()==""||itemVo.getTsize3()==""){
+                    return Result.fail().setMsg("请填写完整的队员3其他信息");
+                }
+            }
         }
 
         Team team=new Team();
@@ -98,6 +104,46 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team> implements Te
     public Result updateTeamById(ItemVo itemVo) {
         if(itemVo.getId()==null){
             return Result.fail().setMsg("前端信息异常");
+        }
+        if(itemVo.getTeamName()==""||itemVo.getTeamEngName()==""){
+            return Result.fail().setMsg("请填写完整的队伍名称信息");
+        }
+
+        if(itemVo.getCoachName()==""||itemVo.getCoachPinyin()==""||itemVo.getCoachSex()==""||itemVo.getCoachTsize()==""){
+            return Result.fail().setMsg("请填写完整教练信息");
+        }
+        if(itemVo.getName1()=="" || itemVo.getPinyin1()==""||itemVo.getSex1()==""||itemVo.getTsize1()==""){
+            return Result.fail().setMsg("必须有一个队员，请填写第一个队员的完整信息");
+        }
+
+        if((itemVo.getPinyin2()==null&&itemVo.getName2()==null)||(itemVo.getPinyin2()==""&&itemVo.getName2()=="")){
+            itemVo.setPinyin2("");
+            itemVo.setName2("");
+            itemVo.setSex2("");
+            itemVo.setTsize2("");
+        }else{
+            if(itemVo.getPinyin2()==""||itemVo.getName2()==""){
+                return Result.fail().setMsg("请填写完整的队员2姓名信息");
+            }else {
+                if(itemVo.getSex2()==""||itemVo.getTsize2()==""){
+                    return Result.fail().setMsg("请填写完整的队员2其他信息");
+                }
+            }
+        }
+
+        if((itemVo.getPinyin3()==null&&itemVo.getName3()==null)||(itemVo.getPinyin3()==""&&itemVo.getName3()=="")){
+            itemVo.setPinyin3("");
+            itemVo.setName3("");
+            itemVo.setSex3("");
+            itemVo.setTsize3("");
+        }else{
+            if(itemVo.getPinyin3()==""||itemVo.getName3()==""){
+                return Result.fail().setMsg("请填写完整的队员3姓名信息");
+            }else {
+                if(itemVo.getSex3()==""||itemVo.getTsize3()==""){
+                    return Result.fail().setMsg("请填写完整的队员3其他信息");
+                }
+            }
         }
         String id=itemVo.getId();
         QueryWrapper<Team> queryWrapper=new QueryWrapper<>();

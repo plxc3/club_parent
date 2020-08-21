@@ -56,7 +56,10 @@ public class Proxy implements Serializable {
     @TableField("TFN")
     private String tfn;
 
+    private String role;
+
     @ApiModelProperty(value = "逻辑删除，0未删除，1删除，默认0")
+    @TableLogic
     private Integer isDeletd;
 
     @TableField(fill = FieldFill.INSERT)

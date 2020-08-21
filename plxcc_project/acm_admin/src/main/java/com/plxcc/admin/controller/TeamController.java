@@ -4,6 +4,7 @@ package com.plxcc.admin.controller;
 import com.plxcc.admin.entity.vo.ItemVo;
 import com.plxcc.admin.service.TeamService;
 import com.plxcc.servicebase.common.Result;
+import com.plxcc.servicebase.config.PermissionVerify;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class TeamController {
     /**
      * 队伍的创建
      * */
+    @PermissionVerify
     @ApiOperation(tags = {"iteam"},value = "小组的添加接口")
     @PostMapping("/addIteam")
     public Result addIteam(@RequestBody ItemVo itemVo){
@@ -42,6 +44,7 @@ public class TeamController {
     /**
      * 队伍的更新
      */
+    @PermissionVerify
     @ApiOperation(tags = {"iteam"},value = "小组更新")
     @PostMapping("/updateById")
     public  Result updateById(@RequestBody ItemVo itemVo){
@@ -50,6 +53,7 @@ public class TeamController {
     /**
      * 小组删除
      */
+    @PermissionVerify
     @ApiOperation(tags = {"iteam"},value = "小组删除")
     @GetMapping("/deleted/{id}")
     public Result deletdByTeamId(@PathVariable String id ){
@@ -72,8 +76,6 @@ public class TeamController {
     public Result getFrontEndList(@PathVariable String id){
         return teamService.getFrontEndList(id);
     }
-
-
 
 }
 
