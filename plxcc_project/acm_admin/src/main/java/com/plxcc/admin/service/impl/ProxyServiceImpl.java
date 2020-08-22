@@ -8,11 +8,13 @@ import com.plxcc.admin.entity.vo.InfoVo;
 import com.plxcc.admin.entity.vo.LoginVo;
 import com.plxcc.admin.entity.vo.RegisterVo;
 import com.plxcc.admin.mapper.ProxyMapper;
+import com.plxcc.admin.service.DailyService;
 import com.plxcc.admin.service.ProxyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.plxcc.admin.service.TeamService;
 import com.plxcc.admin.utils.SchoolSort;
 import com.plxcc.servicebase.common.Result;
+import com.plxcc.servicebase.utils.DateUtil;
 import com.plxcc.servicebase.utils.JwtUtils;
 import com.plxcc.servicebase.utils.MD5;
 import com.plxcc.servicebase.utils.Query;
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,6 +48,9 @@ public class ProxyServiceImpl extends ServiceImpl<ProxyMapper, Proxy> implements
 
     @Autowired
     private ProxyService proxyService;
+
+    @Autowired
+    private DailyService dailyService;
 
 
     @Override
@@ -116,7 +122,11 @@ public class ProxyServiceImpl extends ServiceImpl<ProxyMapper, Proxy> implements
             return Result.fail().setMsg("账户或密码错误");
         }
         String token= JwtUtils.getJwtToken(proxy.getId(),proxy.getName(),proxy.getRole());
-        return Result.success().setMsg("登陆成功").setData("token",token);
+        String day = DateUtil.formatDate(DateUtil.addDays(new Date(), 0));
+        if(dailyService.createLogin(day)){
+            return Result.success().setMsg("登陆成功").setData("token",token);
+        }
+        return Result.fail().setMsg("登陆失败");
     }
 
     @Override

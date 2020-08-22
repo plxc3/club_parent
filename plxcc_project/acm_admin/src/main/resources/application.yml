@@ -5,7 +5,7 @@ spring:
     name: acm_admin
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://121.89.177.244:3306/acm?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://121.89.177.244:3306/acm?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     password: bc090062591563
     username: root
   #redis数据库连接设置
@@ -27,11 +27,11 @@ spring:
     date-format: yyyy-MM-dd HH:MM:SS
     time-zone: GMT+8
 
-#mybatis-plus:
-##  configuration:
-##    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-#    #  <!--#配置mapper xml文件路径-->,必须pom.xml进行配置后使用
-#  mapper-locations: classpath:com/plxcc/admin/mapper/xml/*.xml
+mybatis-plus:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#      <!--#配置mapper xml文件路径-->,必须pom.xml进行配置后使用
+  mapper-locations: classpath:xml/*.xml
 
 #  <!--#配置mapper xml文件路径-->,必须pom.xml进行配置后使用
 #=================================

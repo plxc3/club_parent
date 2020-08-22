@@ -224,6 +224,12 @@
                 <artifactId>aliyun-java-sdk-dm</artifactId>
                 <version>3.1.0</version>
             </dependency>
+<!--hutool-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>5.4.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

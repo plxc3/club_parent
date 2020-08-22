@@ -4,6 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @PackgeName: com.plxcc.admin
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @Description:
  */
 @SpringBootApplication
+@EnableScheduling
 @MapperScan("com.plxcc.admin.mapper")
 @ComponentScan(basePackages = {"com.plxcc","com.plxcc.admin"})
 public class AcmApplication {

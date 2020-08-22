@@ -44,7 +44,6 @@ public class TeamController {
     /**
      * 队伍的更新
      */
-    @PermissionVerify
     @ApiOperation(tags = {"iteam"},value = "小组更新")
     @PostMapping("/updateById")
     public  Result updateById(@RequestBody ItemVo itemVo){
