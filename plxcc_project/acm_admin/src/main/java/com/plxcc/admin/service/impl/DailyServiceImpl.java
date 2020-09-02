@@ -35,8 +35,9 @@ public class DailyServiceImpl extends ServiceImpl<DailyMapper, Daily> implements
         daily.setDateCalculated(day);
         QueryWrapper<Daily> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("date_calculated",day);
-        baseMapper.delete(queryWrapper);
-        baseMapper.insert(daily);
+//        baseMapper.delete(queryWrapper);
+//        baseMapper.insert(daily);
+        baseMapper.update(daily,queryWrapper);
         return Result.success().setMsg("生成成功");
     }
 

@@ -68,7 +68,6 @@ public class MajorExcelListener extends AnalysisEventListener<MajorData> {
             major.setTitle(data.getMajor());
             major.setParentId(college.getId());
             majorService.save(major);
-
         }
 
     }

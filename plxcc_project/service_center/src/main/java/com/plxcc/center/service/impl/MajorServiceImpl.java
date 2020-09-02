@@ -25,6 +25,7 @@ import java.io.InputStream;
 public class MajorServiceImpl extends ServiceImpl<MajorMapper, Major> implements MajorService {
     @Override
     public Result addMajorByExcel(MultipartFile file,MajorService majorService) {
+
         try{
             InputStream inputStream=file.getInputStream();
             //调用方法读取
